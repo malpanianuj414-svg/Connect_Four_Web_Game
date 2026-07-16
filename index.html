@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Connect Four</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Connect Four Game</h1>
+        <div id="status-banner">
+            Current Turn: <span id="current-player" class="red-turn">Red</span>
+        </div>
+        <div class="outerboard"><div id="board"></div></div>
+        <div class="controls">
+            <button id="reset-btn" onclick="resetGame()">Reset Game</button>
+            <button id="stats-btn" onclick="toggleStatsModal(true)">Show Stats</button>
+        </div>
+        <div id="stats-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="toggleStatsModal(false)">&times;</span>
+                <h2>Game Performance Metrics</h2>
+                <hr>
+                <div class="stats-grid">
+                    <div class="stat-item"><strong>Total Matches:</strong> <span id="stat-total">0</span></div>
+                    <div class="stat-item"><strong>Red Wins:</strong> <span id="stat-red">0</span></div>
+                    <div class="stat-item"><strong>Yellow Wins:</strong> <span id="stat-yellow">0</span></div>
+                    <div class="stat-item"><strong>Draws:</strong> <span id="stat-draws">0</span></div>
+                    <div class="stat-item"><strong>Win-Percent</strong> <span id="stat-percent"><hr id="redline"><hr id="drawline"><hr id="yellowline"></span><span id="stat-percentboard"><p id="redboard"></p><p id="drawboard"></p><p id="yellowboard"></p></span></div>
+                </div>
+                <button id="clear-stats-btn" onclick="clearStats()">Clear Records</button>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

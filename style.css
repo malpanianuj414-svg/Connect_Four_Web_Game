@@ -1,0 +1,334 @@
+:root {
+    --board-bg: black;
+    --board-border: brown;
+    --tile-bg: white;
+    --player-red: #ff3333;
+    --player-yellow: #ffcc00;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    min-height: 100vh; 
+    margin: 0;
+    padding: 0 0 20px 0; 
+}
+
+h1 {
+    color: azure;
+    background-color: blue;
+    width: 95%;
+    text-align: center;
+    padding: 10px 0;
+    margin: 10px 0;
+    min-height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr {
+    background-color: brown;
+    height: 5px;
+    margin: 0;
+    width: 100%;
+}
+
+.outerboard {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: steelblue;
+    padding: 20px;
+    flex-grow: 1;
+    margin: 10px 0;
+}
+
+#status-banner {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px; 
+    padding: 10px 0;
+    background: black;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 95%;
+    text-align: center;
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.red-turn { color: var(--player-red); }
+.yellow-turn { color: var(--player-yellow); text-shadow: 1px 1px 1px rgba(0,0,0,0.2); }
+
+#board {
+    width: 50%;
+    background-color: var(--board-bg);
+    border: 10px solid var(--board-border);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    aspect-ratio: 7 / 6; 
+    margin: 0 auto;  
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    padding: 8px;
+    gap: 6px; 
+}
+
+.tile {
+    aspect-ratio: 1 / 1; 
+    background-color: var(--tile-bg);
+    border-radius: 50%;
+    border: 4px solid black;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.red-piece {
+    background-color: var(--player-red) !important;
+}
+.yellow-piece {
+    background-color: var(--player-yellow) !important;
+}
+
+.controls {
+    margin-top: 10px; 
+    display: flex;
+    gap: 50px;
+    padding: 15px 0;
+    background-color: blue;
+    width: 95%;
+    justify-content: center;
+    min-height: 10vh;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    transition: transform 0.1s, background 0.2s;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+#reset-btn { background-color: burlywood; color: black; }
+#reset-btn:hover { background-color: beige; }
+#stats-btn { background-color: sandybrown; color: black; }
+#stats-btn:hover { background-color: bisque; }
+#clear-stats-btn {
+    background-color: #dc3545;
+    color: white;
+    margin-top: 20px;
+    width: 100%;
+}
+#clear-stats-btn:hover { background-color: black; }
+
+.stat-item {
+    background-color: black;
+    padding: 10px 10px;
+    border-radius: 4px; 
+    width: 100%;
+}
+
+.modal {
+    display: none; 
+    position: absolute; 
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    align-items: center; 
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: seagreen;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90% !important; 
+    max-width: 320px !important; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    position: relative;
+    color: white;
+    margin: 15vh auto; 
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: red;
+}
+.close-btn:hover { color: #000; }
+
+.stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+#stat-percent {
+    display: flex;
+    width: 100%;
+    height: 15px; 
+    background: #444; 
+    margin-top: 5px;
+}
+
+#stat-percent #redline {
+    width: 0%;
+    background-color: red;
+}
+#stat-percent #yellowline {
+    width: 0%;
+    background-color: yellow;
+}
+#stat-percent #drawline {
+    width: 0%;
+    background-color: grey;
+}
+
+#stat-percentboard {
+    display: flex;
+    font-size: 18px;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap; 
+}
+
+#stat-percentboard #redboard { color: red; }
+#stat-percentboard #yellowboard { color: yellow; }
+#stat-percentboard #drawboard { color: gray; }
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES 
+   ========================================================================== */
+
+/* 1. Large Screen Scaling Layer (Ultra-Wide Monitors up to 4K) */
+@media screen and (min-width: 2000px) {
+    #board {
+        border: 18px solid var(--board-border);
+    }
+    .tile {
+        border: 8px solid black;
+    }
+    .modal-content {
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 800px !important; 
+    }
+    .close-btn {
+        right: 30px;
+        top: 20px;
+        font-size: 50px;
+    }
+    .stat-item, .modal-content h2, #stat-percentboard #redboard, #stat-percentboard #yellowboard, #stat-percentboard #drawboard {
+        font-size: 36px;
+    }
+    #clear-stats-btn {
+        font-size: 40px;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 1000px)
+{
+    #board {
+        width: 70%;
+    }
+    .controls {
+        padding: 10px 10px;
+    }
+}
+
+/* 2. Tablets and Intermediate Screen States (Max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .controls {
+        gap: 30px;
+    }
+}
+
+/* 3. Fluid Mobile Scaling Layer (480px and down) */
+@media screen and (max-width: 480px) {
+    /* Retains explicit grid alignment parameters safely without breaks */
+    #board {
+        width: 100%;
+        border: 6px solid var(--board-border) !important;
+        padding: 5px !important;
+        gap: 4px !important;
+    }
+    
+    .tile {
+        border: 2px solid black !important;
+    }
+    
+    #status-banner {
+        font-size: 1.3rem;
+        padding: 8px 0;
+    }
+    
+    .controls {
+        gap: 15px;
+        padding: 10px 0;
+    }
+    
+    button {
+        padding: 8px 16px;
+        font-size: 1.1rem;
+    }
+
+    .modal-content {
+        width: 88% !important;
+        padding: 15px;
+    }
+
+    #stat-percentboard {
+        font-size: 14px; 
+    }
+}
+
+@media screen and (min-width: 2500px)
+{
+    .controls {
+        padding: 20px 0;
+        gap: 30px;
+    }
+    
+    #status-banner {
+        font-size: 3.5rem;
+    }
+
+    button {
+        font-size: 3rem;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+}
